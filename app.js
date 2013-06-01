@@ -29,5 +29,17 @@ if (ss.env === 'production') ss.client.packAssets();
 var server = http.Server(ss.http.middleware);
 server.listen(3000);
 
+ss.ws.transport.use(require('ss-engine.io'), {
+  client: {
+    transports: ["polling"],
+    upgrade: false
+  },
+  server: {
+    transports: ["polling"],
+    allowUpgrades: false,
+    pingInterval: 10000
+  }
+});
+
 // Start SocketStream
 ss.start(server);
