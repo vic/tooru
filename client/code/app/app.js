@@ -56,6 +56,7 @@ var valid = function(text) {
   return text && text.length > 0;
 };
 
+/** START TOORU APP **/
 
 
 var fire, fireAuth;
