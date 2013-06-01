@@ -55,3 +55,48 @@ var pad2 = function(number) {
 var valid = function(text) {
   return text && text.length > 0;
 };
+
+
+
+var fire, fireAuth;
+ss.rpc('fire.base', function(fire) {
+  fire = new Firebase(fire.root_url)
+  fireAuth = new FirebaseAuthClient(fire, authenticated)
+});
+
+var authenticated = function(error, user) {
+
+  if (user) {
+    $('span.user').text(user.displayName)
+    $('[data-login]').hide()
+    $('[href=#logout]').show()
+  } else {
+    $('span.user').text('')
+    $('[data-login]').show()
+    $('[href=#logout]').hide()
+  }
+
+  if (error) { $('.login-error').text(error.message).show() }
+
+}
+
+$(function(){
+
+  $("[href=#logout]").click(function(e){
+    e.preventDefault()
+    e.stopPropagation()
+    fireAuth.logout()
+  })
+
+
+  $("[data-login=twitter]").click(function(e){
+    e.preventDefault()
+    e.stopPropagation()
+    $('.login-error').text('').hide()
+    fireAuth.login('twitter')
+  })
+
+})
+
+
+
