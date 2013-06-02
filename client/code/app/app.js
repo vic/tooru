@@ -58,22 +58,21 @@ var valid = function(text) {
 
 /** START TOORU APP **/
 
+var AUTH_TOKEN = 'yqzIkvIXNZazdHuHqRxmBTw8TGQUWdNcgsKWsnjt'
+var ROOT_URL = 'https://tooru.firebaseio.com/'
 
 var fire, fireAuth, currentUser;
-ss.rpc('fire.base', function(fire) {
-  fire = new Firebase(fire.root_url)
-  fireAuth = new FirebaseAuthClient(fire, authenticated)
-});
+fire = new Firebase(ROOT_URL)
+fireAuth = new FirebaseAuthClient(fire, authenticated)
 
-var authenticated = function(error, user) {
+function authenticated(error, user) {
   console.log("AUTHENTICATED ", error, user)
 
   currentUser = user
 
   if (user) {
 
-    ss.rpc("user/sign_in", user, function(){
-    })
+    fire.child("users/"+user.provider+"/"+user.username).set(user)
 
 
     $('span.user').text(user.displayName)
@@ -103,6 +102,22 @@ $(function(){
     e.stopPropagation()
     $('.login-error').text('').hide()
     fireAuth.login('twitter')
+  })
+
+  $('[href=#create]').click(function(e) {
+    e.preventDefault()
+    e.stopPropagation()
+
+    var newTooru = {
+      query: $('[name=query]').val(),
+      sound: $('[name=sound]').val(),
+      source: $('[name=source]').val()
+    }
+
+    ss.rpc('toorus.create', currentUser, newTooru, function(error, created){
+
+    })
+
   })
 
 

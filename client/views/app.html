@@ -16,6 +16,32 @@
 
       <h1>Welcome <span class='user'></span> to your new realtime app!</h1>
 
+
+      <fieldset>
+      
+        <div>
+
+          <label for='source'>Fuente</label>
+          <select name='source'>
+            <option value='twitterSearch'>Busqueda Twitter</option>
+          </select>
+
+          <label for='query'>Busqueda</label>
+          <input type='text' name='query' value='' />
+
+          <label for='sound'>Sound</label>
+          <select name='sound'>
+            <option value='1'>Tooru</option>
+            <option value='2'>Blip</option>
+            <option value='3'>Toing</option>
+          </select>
+
+        </div>
+
+        <a class='btn btn-primary' href='#create'>Crear</a>
+
+      </fieldset>
+
       <form>
         <h3>Search on twitter</h3>
         <input id="twitterSearch" type="text" autocomplete="off" placeholder="Search on twitter" />
