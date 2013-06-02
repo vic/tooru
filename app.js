@@ -29,6 +29,12 @@ app.get('/foursquare-login', function(req, res){
   res.end();
 })
 
+app.get('/sound/:sound', function(req, res){
+  fire.child("totooru").push({data: 'sound', sound: req.params.sound})
+  res.writeHead(200, {'Content-Type': 'text/plain'})
+  res.end('tooru');
+})
+
 
 app.post('/foursquare', function(req, res){
   fire.child("totooru").push({data: 'checkin', sound: 2})
