@@ -59,7 +59,7 @@ var valid = function(text) {
 /** START TOORU APP **/
 
 
-var fire, fireAuth;
+var fire, fireAuth, currentUser;
 ss.rpc('fire.base', function(fire) {
   fire = new Firebase(fire.root_url)
   fireAuth = new FirebaseAuthClient(fire, authenticated)
@@ -67,7 +67,13 @@ ss.rpc('fire.base', function(fire) {
 
 var authenticated = function(error, user) {
 
+  currentUser = user
+
   if (user) {
+
+    ss.rpc("user/sign_in", user)
+
+
     $('span.user').text(user.displayName)
     $('[data-login]').hide()
     $('[href=#logout]').show()
@@ -95,6 +101,16 @@ $(function(){
     e.stopPropagation()
     $('.login-error').text('').hide()
     fireAuth.login('twitter')
+  })
+
+
+  $("#twitterSearch").change(function(e){
+
+    ss.rpc("twitter.search", currentUser, function(tweet) {
+      console.log("GOT TWEET ", tweet)
+      $('.twitts').append(tweet)
+    })
+
   })
 
 })
