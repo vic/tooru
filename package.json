@@ -12,7 +12,8 @@
     "ss-hogan": "0.1.x",
     "firebase": "*",
     "ntwitter": "0.5.0",
-    "underscore": "*"
+    "underscore": "*",
+    "node-foursquare": "*"
   },
   "scripts":{
     "start":"node app.js"

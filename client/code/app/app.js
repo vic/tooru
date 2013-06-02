@@ -96,6 +96,14 @@ $(function(){
     fireAuth.logout()
   })
 
+  $("[data-login=foursquare]").click(function(e){
+    e.preventDefault()
+    e.stopPropagation()
+    $('.login-error').text('').hide()
+
+    window.open("/foursquare-login")
+
+  })
 
   $("[data-login=twitter]").click(function(e){
     e.preventDefault()
@@ -134,6 +142,22 @@ $(function(){
     console.log("GOT TWEET ", tweet)
     $('.twitts').append(tweet.text)
   });
+
+  window.fsqAuth = function(id) {
+    fire.child("users/foursquare/"+id).once('value', function(snapshot){
+      var user = snapshot.val()
+      currentUser = user;
+      $('span.user').text(user.displayName)
+      $('[data-login]').hide()
+      $('[href=#logout]').show()
+
+
+      console.log("fetching venues on server")
+      ss.rpc("foursquare.venues", user, function() {
+
+      })
+    })
+  }
 
 })
 
