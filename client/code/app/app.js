@@ -66,6 +66,7 @@ ss.rpc('fire.base', function(fire) {
 });
 
 var authenticated = function(error, user) {
+  console.log("AUTHENTICATED ", error, user)
 
   currentUser = user
 

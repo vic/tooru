@@ -16,6 +16,12 @@ ss.http.route('/', function(req, res){
   res.serveClient('main');
 });
 
+ss.http.route('/tooru', function(req, res){
+  res.writeHead(200, {'Content-Type': 'text/plain'});
+  var num = Math.floor((Math.random()*3)+1)
+  res.end(''+num);
+})
+
 // Code Formatters
 ss.client.formatters.add(require('ss-stylus'));
 
