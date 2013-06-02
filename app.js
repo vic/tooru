@@ -36,7 +36,6 @@ app.post('/foursquare', function(req, res){
   res.end('');
 })
 
-
 app.get('/foursquare-callback', function(req, res){
   foursquare.client.getAccessToken({
     code: req.query.code,
