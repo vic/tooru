@@ -31,7 +31,7 @@ app.get('/foursquare-login', function(req, res){
 
 
 app.post('/foursquare', function(req, res){
-  console.log("GOT FOURSQUARE CHECKIN ", req.query.checkin)
+  fire.child("totooru").push({data: 'checkin', sound: 2})
   res.writeHead(200, {'Content-Type': 'text/html'})
   res.end('');
 })
