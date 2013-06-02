@@ -17,12 +17,19 @@ exports.actions = function(req, res, ss) {
 
   return {
     search: function(user, search) {
-      if( !!! user ) { return }
+      var user_token = {}
 
-      var credentials = _.extend({
-        access_token_key: user.accessToken,
-        access_token_secret: user.accessTokenSecret
-      }, twitter_consumer)
+      if (user) {
+        user_token = {
+          access_token_key: user.accessToken,
+          access_token_secret: user.accessTokenSecret
+        }
+      }
+
+      var credentials = _.extend({},
+                                 twitter_token,
+                                 user_token,
+                                 twitter_consumer)
 
       var twitter = new Twitter(credentials)
 
