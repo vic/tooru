@@ -1,5 +1,5 @@
-//var redirectUrl = "http://tooru.heroku.com/foursquare-callback"
-var redirectUrl = "http://localhost:5000/foursquare-callback"
+var redirectUrl = "http://tooru.heroku.com/foursquare-callback"
+//var redirectUrl = "http://localhost:5000/foursquare-callback"
 
 var config = {
   'secrets' : {
