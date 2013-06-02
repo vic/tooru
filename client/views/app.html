@@ -1,61 +1,226 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8"/>
-    <script src='https://cdn.firebase.com/v0/firebase.js'></script>
-    <script src='https://cdn.firebase.com/v0/firebase-auth-client.js'></script>
-    <SocketStream/>
-    <title>Welcome</title>
-  </head>
-  <body>
-    <div class='login-error'></div>
-    <div id="content">
-
-      <a href='#logout' class='button btn hide' >Logout</a>
-      <a href='#' data-login='twitter' class='button btn hide btn-primary' >Login with twitter</a>
-      <a href='#' data-login='foursquare' class='button btn hide btn-primary' >Login with foursquare</a>
-
-      <h1>Welcome <span class='user'></span> to your new realtime app!</h1>
-
-
-      <fieldset>
-      
-        <div>
-
-          <label for='source'>Fuente</label>
-          <select name='source'>
-            <option value='twitterSearch'>Busqueda Twitter</option>
-          </select>
-
-          <label for='query'>Busqueda</label>
-          <input type='text' name='query' value='' />
-
-          <label for='sound'>Sound</label>
-          <select name='sound'>
-            <option value='1'>Tooru</option>
-            <option value='2'>Blip</option>
-            <option value='3'>Toing</option>
-          </select>
-
+<head>
+  <meta charset="utf-8"/>
+  <script src='https://cdn.firebase.com/v0/firebase.js'></script>
+  <script src='https://cdn.firebase.com/v0/firebase-auth-client.js'></script>
+  <SocketStream/>
+  <title>Tooru</title>
+</head>
+<body>
+      <div class="container-narrow">
+        <div class="masthead">
+          <ul class="nav nav-pills pull-right">
+<!--             <li><a href="#about">About</a></li> -->
+            <li><a href="#sources" data-menu="#sources">Add sources</a></li>
+            <li><a href="#toorus" data-menu="#toorus">Toorus</a></li>
+          </ul>
+          <h3 class="muted"><a href="/">Tooru.</a></h3>
         </div>
 
-        <a class='btn btn-primary' href='#create'>Crear</a>
+        <hr>
+        <div id="main">
+          <div id="home">
+            <div class="jumbotron">
+              <h1>Tooru.</h1>
+              <h4><i>/ˈtuːruː/</i></h4>
+              <p class="lead">Your all-in-one notification wireless speaker.</p>
+              <a class="btn btn-large btn-success" href="#kickstarterModal" role="button" data-toggle="modal">Get one</a>
 
-      </fieldset>
+              <!-- Modal -->
+              <div id="kickstarterModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                  <h3 id="myModalLabel">Get one soon on</h3>
+                </div>
+                <div class="modal-body">
+                  <p><a href="http://kickstarter.com"><img src="images/kickstarter.png"></a></p>
+                </div>
+              </div>
+            </div>
 
-      <form>
-        <h3>Search on twitter</h3>
-        <input id="twitterSearch" type="text" autocomplete="off" placeholder="Search on twitter" />
-        <div class='twitts'></div>
-      </form>
+            <hr>
 
-      <!-- QUICK CHAT DEMO-->
-      <form id="demo" onsubmit="return false">
-        <h3>Quick Chat Demo</h3>
-        <h5>Open this page in multiple tabs or browsers and type a message below</h5>
-        <div id="chatlog"></div>
-        <input id="myMessage" type="text" autocomplete="off">
-      </form>
+            <div class="row-fluid marketing">
+              <div class="span6 headline right">
+                <h3>Emergencies</h3>
+                <p>Get warned as soon as an emergency occurs, or moments before a predictable natural disaster strikes.</p>
+              </div>
+              <iframe class="vine-embed span6" src="https://vine.co/v/b3b5jr3jEO5/embed/simple" width="341" height="341" frameborder="0"></iframe><script async src="//platform.vine.co/static/scripts/embed.js" charset="utf-8"></script>
+            </div>
+            <br>
+            <div class="row-fluid marketing">
+              <iframe class="vine-embed span6" src="https://vine.co/v/b3brLrUOXaF/embed/simple" width="341" height="341" frameborder="0"></iframe><script async src="//platform.vine.co/static/scripts/embed.js" charset="utf-8"></script>
+              <div class="span6 headline">
+                <h3>Geolocation</h3>
+                <p>Find out when a person leaves, arrives or checks-in at a venue.</p>
+              </div>
+            </div>
+            <br>
+            <div class="row-fluid marketing">
+              <div class="span6 headline right">
+                <h3>Overcoming visual impairment</h3>
+                <p>Get useful notifications to help you navigate through the day.</p>
+              </div>
+              <iframe class="vine-embed span6" src="https://vine.co/v/b3bg2BiX695/embed/simple" width="341" height="341" frameborder="0"></iframe><script async src="//platform.vine.co/static/scripts/embed.js" charset="utf-8"></script>
+            </div>
+            <br>
+            <div class="row-fluid marketing">
+              <iframe class="vine-embed span6" src="https://vine.co/v/b3bp7gMbzAe/embed/simple" width="341" height="341" frameborder="0"></iframe><script async src="//platform.vine.co/static/scripts/embed.js" charset="utf-8"></script>
+              <div class="span6 headline">
+                <h3>Motivation</h3>
+                <p>Set up encouragement alerts when reaching personal or work milestones.</p>
+              </div>
+            </div>
+            <br>
+            <div class="row-fluid marketing">
+              <div class="span6 headline right">
+                <h3>Social and work agenda</h3>
+                <p>Don’t miss out on important events, emails or social media updates.</p>
+              </div>
+              <iframe class="vine-embed span6" src="https://vine.co/v/b3bHhtmjbiF/embed/simple" width="341" height="341" frameborder="0"></iframe><script async src="//platform.vine.co/static/scripts/embed.js" charset="utf-8"></script>
+            </div>
+            <br>
+            <div class="row-fluid center">
+              <div class="span12 headline">
+                <h3>Get creative</h3>
+                <p>Use our API to develop custom notifications for any type of situation.</p>
+              </div>
+            </div>
+            <br>
+            <div class="row-fluid marketing">
+              <img src="images/ifttt.png" alt="" class="img-rounded span6">
+              <div class="span6 headline">
+                <h3>IFTTT</h3>
+                <p>Soon, Tooru will be compatible with IFTTT as a <i>That</i></p>
+              </div>
+            </div>
+          </div> <!-- home -->
+
+          <div id="sources">
+              <div class='login-error'></div>
+
+              <a href='#logout' class='button btn hide' >Logout</a>
+              <a href='#' data-login='twitter' class='button btn hide btn-primary' >Login with twitter</a>
+              <a href='#' data-login='foursquare' class='button btn hide btn-primary' >Login with foursquare</a>
+          </div> <!-- sources -->
+
+          <div id="toorus">
+
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Status</th>
+                  <th>Description</th>
+                  <th>Sound</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <input class="switch" type="checkbox" data-toggle="switch">
+                  </td>
+                  <td>Alarm at 7:00AM</td>
+                  <td>Chirps</td>
+                </tr>
+<!--                 <tr>
+                  <td>
+                    <input class="switch" type="checkbox" checked="" data-toggle="switch">
+                  </td>
+                  <td>Tweet mentioning @tooru</td>
+                  <td>Beep</td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <input class="switch" type="checkbox" checked="" data-toggle="switch">
+                  </td>
+                  <td>Mike checks in his office</td>
+                  <td>Mariachi</td>
+                </tr> -->
+              </tbody>
+            </table>
+
+            <script type="text" id="tooruTemplate">
+              <tr>
+                <td>
+                  <input class="switch" type="checkbox" checked="" data-toggle="switch">
+                </td>
+                <td>%TEXT%</td>
+                <td>%SOUND%</td>
+              </tr>
+            </script>
+
+            <a href="#newTooru" role="button" class="btn btn-primary" data-toggle="modal"> <span class="fui-plus"></span>New tooru</a>
+             
+            <!-- Modal -->
+            <div id="newTooru" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="newTooruLabel" aria-hidden="true">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="newTooruLabel">New tooru</h3>
+              </div>
+              <div class="modal-body">
+                <fieldset>
+
+                    <!-- <label for='source'>Fuente</label> -->
+                    <select name='source' class="herolist span3 source">
+                      <option value=''>Source</option>
+                      <option value='twitterSearch'>Twitter Search</option>
+                      <option value='forsquareCheckin'>Forsquare Checkin</option>
+                      <option value='mail'>Mail</option>
+                      <option value='custom'>Custom</option>
+
+
+                    </select>
+
+                    <div class="span3">
+                      <!-- <label for='query'>Busqueda</label> -->
+                      <input type='text' name='query' value='' class="span3" placeholder="Value"/>
+                    </div>
+
+                    <!-- <label for='sound'>Sound</label> -->
+                    <select name='sound' class="herolist span3 sound">
+                      <option value="">Sound</option>
+                      <option value="1">Bell</option>
+                      <option value="2">Alarm</option>
+                      <option value="3">Bike</option>
+                      <option value="4">Cheers</option>
+                      <!-- <option value="5">O'clock</option> -->
+                      <option value="6">Kid</option>
+                      <!-- <option value="7">Conga</option> -->
+                      <!-- <option value="8">Rumba</option> -->
+                      <option value="9">Fireman</option>
+                      <!-- <option value="10">Recreo</option> -->
+                      <!-- <option value="11">Doorbell</option> -->
+                      <option value="12">Money</option>
+                      <option value="13">Pop</option>
+                      <!-- <option value="13">Cheering</option> -->
+                      <option value="13">Happy Birthday</option>
+                      <!-- <option value="13">Applause</option> -->
+                      <option value="13">Tooru</option>
+                    </select>
+                </fieldset>
+                </div>
+
+              <div class="modal-footer">
+                <button class="btn btn-primary" href="#create">Save</button>
+                <button class="btn" data-dismiss="modal" aria-hidden="true"><span class="fui-cross"></span></button>
+              </div>
+            </div>
+          </div> <!-- toorus -->
+
+
+        </div>
+      </div>
+    <hr>
+
+
+
+
+    <div class="footer">
+      <p>Tooru 2013 - Crafted at <a href="http://angelhack.mx/">AngelHack DF 2013</a></p>
     </div>
-  </body>
+
+  </div> <!-- /container -->
+</body>
 </html>

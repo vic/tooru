@@ -1,60 +1,11 @@
-/* QUICK CHAT DEMO */
-
-// Delete this file once you've seen how the demo works
-
-// Listen out for newMessage events coming from the server
-ss.event.on('newMessage', function(message) {
-
-  // Example of using the Hogan Template in client/templates/chat/message.jade to generate HTML for each message
-  var html = ss.tmpl['chat-message'].render({
-    message: message,
-    time: function() { return timestamp(); }
+(function($) {
+  $(function() {
+    $("[data-toggle='switch']").wrap('<div class="switch" />').parent().bootstrapSwitch();
+    $("select.herolist").selectpicker({style: 'btn-primary', menuStyle: 'dropdown-inverse'});
+    $("select.herolist").click(function(e){
+    })
   });
-
-  // Append it to the #chatlog div and show effect
-  return $(html).hide().appendTo('#chatlog').slideDown();
-});
-
-// Show the chat form and bind to the submit action
-$('#demo').on('submit', function() {
-
-  // Grab the message from the text box
-  var text = $('#myMessage').val();
-
-  // Call the 'send' funtion (below) to ensure it's valid before sending to the server
-  return exports.send(text, function(success) {
-    if (success) {
-      return $('#myMessage').val('');
-    } else {
-      return alert('Oops! Unable to send message');
-    }
-  });
-});
-
-// Demonstrates sharing code between modules by exporting function
-exports.send = function(text, cb) {
-  if (valid(text)) {
-    return ss.rpc('demo.sendMessage', text, cb);
-  } else {
-    return cb(false);
-  }
-};
-
-
-// Private functions
-
-var timestamp = function() {
-  var d = new Date();
-  return d.getHours() + ':' + pad2(d.getMinutes()) + ':' + pad2(d.getSeconds());
-};
-
-var pad2 = function(number) {
-  return (number < 10 ? '0' : '') + number;
-};
-
-var valid = function(text) {
-  return text && text.length > 0;
-};
+})(jQuery);
 
 /** START TOORU APP **/
 
@@ -89,6 +40,42 @@ function authenticated(error, user) {
 }
 
 $(function(){
+  var updateContent = function(section){
+    section = section
+    var content = $(section)
+    // window.location.hash = section
+    content.show().siblings().hide()
+    console.log(section)
+  }
+  updateContent(window.location.hash || '#home')
+
+  var tooruTemplate = $('#tooruTemplate').html()
+  fire.child('toorus').on('child_added', function(ref){
+      var t = ref.val()
+      console.log(t)
+      var sound = $('.sound [value='+t.sound+']').text()
+      var source = $('.source [value='+t.source+']').text()
+      console.log(sound, source)
+      var rendered = tooruTemplate.replace('%TEXT%', source + ': '+ t.query)
+      rendered = rendered.replace('%SOUND%',sound)
+
+      rendered = $(rendered)
+
+      $('#toorus tbody').append(rendered)
+
+      rendered.find("[data-toggle='switch']").wrap('<div class="switch" />').parent().bootstrapSwitch();
+
+  })
+
+  var addTooru = function(){
+
+  }
+
+  $(".masthead .nav a").click(function(e){
+    e.preventDefault()
+    e.stopPropagation()
+    updateContent($(this).data().menu)
+  })
 
   $("[href=#logout]").click(function(e){
     e.preventDefault()
@@ -123,7 +110,7 @@ $(function(){
     }
 
     ss.rpc('toorus.create', currentUser, newTooru, function(error, created){
-
+      $('#newTooru').modal('hide')
     })
 
   })

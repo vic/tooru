@@ -1,0 +1,5 @@
+(function($) {
+  $(function() {
+    $("[data-toggle='switch']").wrap('<div class="switch" />').parent().bootstrapSwitch();
+  });
+})(jQuery);

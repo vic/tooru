@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <script src='https://cdn.firebase.com/v0/firebase.js'></script>
+  <script src='https://cdn.firebase.com/v0/firebase-auth-client.js'></script>
+  <SocketStream/>
+  <title>Welcome</title>
+</head>
+<body>
+  <div class='login-error'></div>
+  <div id="content">
+
+    <a href='#logout' class='button btn hide' >Logout</a>
+    <a href='#' data-login='twitter' class='button btn hide btn-primary' >Login with twitter</a>
+    <a href='#' data-login='foursquare' class='button btn hide btn-primary' >Login with foursquare</a>
+
+    <h1>Welcome <span class='user'></span> to your new realtime app!</h1>
+
+
+    <fieldset>
+      
+      <div>
+
+        <label for='source'>Fuente</label>
+        <select name='source'>
+          <option value='twitterSearch'>Busqueda Twitter</option>
+        </select>
+
+        <label for='query'>Busqueda</label>
+        <input type='text' name='query' value='' />
+
+        <label for='sound'>Sound</label>
+        <select name='sound'>
+          <option value='1'>Tooru</option>
+          <option value='2'>Blip</option>
+          <option value='3'>Toing</option>
+        </select>
+
+      </div>
+
+      <a class='btn btn-primary' href='#create'>Crear</a>
+
+    </fieldset>
+
+    <form>
+      <h3>Search on twitter</h3>
+      <input id="twitterSearch" type="text" autocomplete="off" placeholder="Search on twitter" />
+      <div class='twitts'></div>
+    </form>
+
+    <!-- QUICK CHAT DEMO-->
+    <form id="demo" onsubmit="return false">
+      <h3>Quick Chat Demo</h3>
+      <h5>Open this page in multiple tabs or browsers and type a message below</h5>
+      <div id="chatlog"></div>
+      <input id="myMessage" type="text" autocomplete="off">
+    </form>
+  </div>
+</body>
+</html>

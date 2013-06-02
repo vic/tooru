@@ -14,7 +14,7 @@ var app = express();
 ss.client.define('main', {
   view: 'app.html',
   css:  ['libs/reset.css', 'libs/bootstrap.css', 'libs/flat-ui.css', 'app.styl'],
-  code: ['libs/jquery.min.js', 'app'],
+  code: ['libs/jquery.min.js', 'libs/bootstrap.min.js', 'libs/bootstrap-switch.js', 'libs/bootstrap-select.js', 'app'],
   tmpl: '*'
 });
 
