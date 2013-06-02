@@ -78,12 +78,28 @@ app.get('/tooru', function(req, res){
 
   fire.child('totooru').once('value', function(snap) {
     var sounds = []
+    var performed = false;
+
+    var perform = function() {
+      if (performed) {
+        return false
+      } else {
+        res.writeHead(200, {'Content-Type': 'text/plain'})
+        res.end(JSON.stringify({sounds: sounds}))
+        return performed = true
+      }
+    }
+
     snap.forEach(function(child) {
       sounds.push(child.val().sound * 1)
+      child.ref().remove()
+
+      if (sounds.length == 5) {
+        perform()
+      }
     })
-    fire.child('totooru').remove()
-    res.writeHead(200, {'Content-Type': 'text/plain'})
-    res.end(JSON.stringify({sounds: sounds}))
+    perform()
+
   })
 
 })
