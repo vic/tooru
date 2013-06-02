@@ -72,7 +72,8 @@ var authenticated = function(error, user) {
 
   if (user) {
 
-    ss.rpc("user/sign_in", user)
+    ss.rpc("user/sign_in", user, function(){
+    })
 
 
     $('span.user').text(user.displayName)
@@ -107,12 +108,17 @@ $(function(){
 
   $("#twitterSearch").change(function(e){
 
-    ss.rpc("twitter.search", currentUser, function(tweet) {
-      console.log("GOT TWEET ", tweet)
-      $('.twitts').append(tweet)
+    console.log("SEARCHING ON TWITTER ", $(this).val(), " WITH USER ", currentUser)
+
+    ss.rpc("twitter.search", currentUser, $(this).val(), function(tweet) {
     })
 
   })
+
+  ss.event.on('tweet', function(tweet){
+    console.log("GOT TWEET ", tweet)
+    $('.twitts').append(tweet.text)
+  });
 
 })
 
